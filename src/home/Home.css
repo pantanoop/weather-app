@@ -1,16 +1,48 @@
-.card {
-    height: 450px;
-    width: 1500px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 2px solid red;
-    background: transparent;
-    background-color: #ebe6e6;
-    opacity: 0.5;
-    position: relative;
-    left: 184px;
-    /* border-color: rgb(255, 0, 0); */
-    bottom: -100px;
+.weather-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.temp-card {
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.temp-card h1 {
+  font-size: 48px;
+  margin: 0;
+  color: #0f172a;
+}
+
+.temp-card p {
+  font-size: 18px;
+  color: #334155;
+}
+
+.info-card {
+  padding: 25px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-card span {
+  font-size: 14px;
+  color: #475569;
+}
+
+.info-card h2 {
+  font-size: 26px;
+  margin: 8px 0 0;
+  color: #0f172a;
 }

@@ -1,49 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWeatherByCity } from "../redux/weatherSlice";
-import Card from "../Card/Card";
-import TemperatureCard from "../TemperatureCard/TemperatureCard"
-import "./Home.css"
+import "./Home.css";
 
-function Home({searchTerm}){
-    
-    const weatherData = useSelector((state) => state.dataCollector.weather);
+function Home({ searchTerm }) {
+  const weatherData = useSelector((state) => state.dataCollector.weather);
+  const loading = useSelector((state) => state.dataCollector.loading);
+  const error = useSelector((state) => state.dataCollector.error);
 
-    const dispatch = useDispatch();
-    console.log(weatherData);
+  const dispatch = useDispatch();
 
- useEffect(()=>{
-    const weatherData =getWeather(searchTerm);
-    console.log("weather data:" ,weatherData);
-},[searchTerm])
+  useEffect(() => {
+    if (!searchTerm) return;
 
-// console.log("weather data:" ,weatherData);
-console.log(searchTerm);
+    const apiKey = process.env.REACT_APP_API_KEY;
 
-async function getWeather(searchTerm) {
-    const apiKey = process.env.REACT_APP_API_KEY
-    
-try {
+    const debounceTimer = setTimeout(() => {
+      dispatch(fetchWeatherByCity({ searchTerm, apiKey }));
+    }, 600);
 
-    await dispatch(fetchWeatherByCity({searchTerm,apiKey}));
-   
-}
+    return () => clearTimeout(debounceTimer);
+  }, [searchTerm, dispatch]);
 
-catch (error) {
-    console.log("Error:", error.message)
-}
+  if (loading) {
+    return <p>Loading weather...</p>;
   }
- 
-    return(
-    <div className="card">
-    <TemperatureCard city={weatherData.city} temp={weatherData.temp} description={weatherData.weatherDescription}/>
-    <Card variable={weatherData.humidity} variableText={"humidity"}/>
-    <Card  variable={weatherData.windSpeed} variableText={"wind speed"}/>
-    </div>
-    )
-}
 
-     
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  return (
+    <div className="weather-grid">
+      <div className="temp-card">
+        <h1>{weatherData.temp}</h1>
+        <p>{weatherData.city}</p>
+        <p>{weatherData.weatherDescription}</p>
+      </div>
+
+      <div className="info-card">
+        <span>Humidity</span>
+        <h2>{weatherData.humidity}</h2>
+      </div>
+
+      <div className="info-card">
+        <span>Wind Speed</span>
+        <h2>{weatherData.windSpeed}</h2>
+      </div>
+    </div>
+  );
+}
 
 export default Home;
-
