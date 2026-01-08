@@ -1,0 +1,16 @@
+.card {
+    height: 450px;
+    width: 1500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 2px solid red;
+    background: transparent;
+    background-color: #ebe6e6;
+    opacity: 0.5;
+    position: relative;
+    left: 184px;
+    /* border-color: rgb(255, 0, 0); */
+    bottom: -100px;
+}

@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./Navbar/Navbar";
+import Home from "./home/Home"
+import "./App.css"
+import { useState } from "react";
 
 function App() {
+const [searchTerm,setSearchTerm] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+
+      <div className="navbar">
+            <Navbar searchTerm={searchTerm} setSearchTerm ={setSearchTerm}/>
+      </div>
+ 
+      <div className="home">
+        <Home searchTerm={searchTerm}/>
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
+
